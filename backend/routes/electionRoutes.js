@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { jwtAuthMiddleware } = require('./../jwt');
+const { jwtAuthMiddleware } = require('./../JWT');
 const Election = require("../models/election");
 
 const mongoose = require('mongoose');
@@ -357,4 +357,5 @@ router.get('/:electionId/map-results', async (req, res) => {
         console.error("Error in /map-results aggregation:", err); 
         res.status(500).json({ error: 'Failed to aggregate map results.', details: err.message });
     }
+
 });

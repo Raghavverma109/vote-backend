@@ -28,12 +28,15 @@ const electionRoutes = require("./routes/electionRoutes");
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://vote-frontend.vercel.app/",   // ✅ your Vercel frontend URL
+    "https://vote-frontend.vercel.app",   // ✅ no slash!
   ],
-  
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  credentials: true
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // ✅ added OPTIONS
+  allowedHeaders: ["Content-Type", "Authorization"], // ✅ important
+  credentials: true,
 }));
+
+app.options("*", cors()); // ✅ preflight handler
+
 
 app.use('/user', userRoutes); // Use the User routes
 app.use('/candidates', candidateRoutes); // Use the Candidate routes
@@ -42,5 +45,6 @@ app.use("/elections", electionRoutes); // Use the Election routest
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
 });
+
 
 

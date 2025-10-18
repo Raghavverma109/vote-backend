@@ -19,12 +19,6 @@ const port = process.env.PORT || 3030;
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
-// Import the routes
-const userRoutes = require('./routes/userRoutes');
-const candidateRoutes = require('./routes/candidateRoutes');
-const electionRoutes = require("./routes/electionRoutes");  
-
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -38,6 +32,14 @@ app.use(cors({
 app.options("*", cors()); // ✅ preflight handler
 
 
+
+// Import the routes
+const userRoutes = require('./routes/userRoutes');
+const candidateRoutes = require('./routes/candidateRoutes');
+const electionRoutes = require("./routes/electionRoutes");  
+
+
+
 app.use('/user', userRoutes); // Use the User routes
 app.use('/candidates', candidateRoutes); // Use the Candidate routes
 app.use("/elections", electionRoutes); // Use the Election routest
@@ -45,6 +47,7 @@ app.use("/elections", electionRoutes); // Use the Election routest
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
 });
+
 
 
 

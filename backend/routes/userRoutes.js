@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { jwtAuthMiddleware, generateToken } = require('./../jwt'); // Import the JWT middleware and token generation function
+const { jwtAuthMiddleware, generateToken } = require('./../JWT'); // Import the JWT middleware and token generation function
 
 
 // Import the USER model from the models directory
@@ -192,3 +192,4 @@ router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
 });
 
 module.exports = router;
+

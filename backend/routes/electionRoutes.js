@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { jwtAuthMiddleware } = require('./../JWT');
+const { jwtAuthMiddleware } = require('../JWT');
 const Election = require("../models/election");
 
 const mongoose = require('mongoose');
@@ -359,3 +359,4 @@ router.get('/:electionId/map-results', async (req, res) => {
     }
 
 });
+

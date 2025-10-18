@@ -3,51 +3,40 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require("dotenv").config();
 
-
-const dotenv = require("dotenv");
-const path = require("path");
-
-dotenv.config({ path: path.resolve(__dirname, ".env") });
-
 const app = express();
 const db = require('./db');
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.json());
 const port = process.env.PORT || 3030;
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://vote-frontend.vercel.app",   // ✅ no slash!
+    "https://vote-frontend.vercel.app",
   ],
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // ✅ added OPTIONS
-  allowedHeaders: ["Content-Type", "Authorization"], // ✅ important
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
 
-app.options("*", cors()); // ✅ preflight handler
+app.options("*", cors());
 
-
-
-// Import the routes
+// Routes
 const userRoutes = require('./routes/userRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
-const electionRoutes = require("./routes/electionRoutes");  
+const electionRoutes = require("./routes/electionRoutes");
 
+app.use('/user', userRoutes);
+app.use('/candidates', candidateRoutes);
+app.use("/elections", electionRoutes);
 
-
-app.use('/user', userRoutes); // Use the User routes
-app.use('/candidates', candidateRoutes); // Use the Candidate routes
-app.use("/elections", electionRoutes); // Use the Election routest
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`)
+// Test route
+app.get("/", (req, res) => {
+  res.send("Backend is running ✅");
 });
 
-
-
-
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

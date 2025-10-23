@@ -23,11 +23,10 @@ const candidateRoutes = require('./routes/candidateRoutes');
 const electionRoutes = require("./routes/electionRoutes");
 
 // Allowed origins (for CORS)
-const allowedOrigins = (
-  process.env.FrontEND_ALLOWED_ORIGINS + "," + process.env.Backend_ALLOWED_ORIGINS
-)
-  .split(",")
-  .map(origin => origin.trim().replace(/\/$/, ""));
+const allowedOrigins = [
+  process.env.FrontEND_ALLOWED_ORIGINS,
+  process.env.Backend_ALLOWED_ORIGINS
+].filter(Boolean).map(o => o.replace(/\/$/, ""));
 
 
 app.use(cors({
@@ -58,3 +57,4 @@ app.use("/elections", electionRoutes);
 app.listen(port, () => {
   console.log(`✅ Server is running on port ${port}`);
 });
+

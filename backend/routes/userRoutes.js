@@ -192,5 +192,3 @@ router.put('/profile/password', jwtAuthMiddleware, async (req, res) => {
 });
 
 module.exports = router;
-
-

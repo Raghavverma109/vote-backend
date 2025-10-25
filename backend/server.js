@@ -22,12 +22,11 @@ const userRoutes = require('./routes/userRoutes');
 const candidateRoutes = require('./routes/candidateRoutes');
 const electionRoutes = require("./routes/electionRoutes");
 
-// Allowed origins (for CORS)
-const allowedOrigins = [
-  process.env.FrontEND_ALLOWED_ORIGINS,
-  process.env.Backend_ALLOWED_ORIGINS
-].filter(Boolean).map(o => o.replace(/\/$/, ""));
-
+const allowedOrigins = (
+  process.env.VITE_Frontend_URL + "," + process.env.VITE_Backend_URL
+)
+  .split(",")
+  .map(origin => origin.trim().replace(/\/$/, ""));
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -57,4 +56,5 @@ app.use("/elections", electionRoutes);
 app.listen(port, () => {
   console.log(`✅ Server is running on port ${port}`);
 });
+
 
